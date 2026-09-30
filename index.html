@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Data Analysis — Complete Learning Course</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3250;
+    --accent: #6c63ff;
+    --accent2: #00c9a7;
+    --accent3: #f7b731;
+    --accent4: #fc5c65;
+    --text: #e8eaf6;
+    --muted: #8b90b0;
+    --green: #26de81;
+    --blue: #45aaf2;
+    --orange: #fd9644;
+    --pink: #fd79a8;
+    --radius: 12px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  /* HEADER */
+  .hero {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 40%, #1a1030 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(108,99,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(108,99,255,0.15);
+    border: 1px solid rgba(108,99,255,0.4);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #c3cfe2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 620px;
+    margin: 0 auto 32px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 48px 0 40px;
+  }
+  .toc h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 8px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 14px;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+  }
+  .toc-item:hover {
+    background: var(--surface2);
+    border-color: var(--border);
+  }
+  .toc-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .toc-num {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700;
+    min-width: 24px;
+  }
+
+  /* INSTRUCTOR NOTE */
+  .instructor-note {
+    background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(0,201,167,0.08));
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .instructor-note .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .instructor-note p {
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  /* PHASE CARDS */
+  .phase {
+    margin-bottom: 64px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding: 24px 28px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .phase-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+  .phase-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .phase-header .duration {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .phase-1 .phase-header { background: linear-gradient(135deg, rgba(38,222,129,0.08), rgba(38,222,129,0.03)); border-color: rgba(38,222,129,0.3); }
+  .phase-1 .phase-header h2 { color: var(--green); }
+  .phase-2 .phase-header { background: linear-gradient(135deg, rgba(69,170,242,0.08), rgba(69,170,242,0.03)); border-color: rgba(69,170,242,0.3); }
+  .phase-2 .phase-header h2 { color: var(--blue); }
+  .phase-3 .phase-header { background: linear-gradient(135deg, rgba(247,183,49,0.08), rgba(247,183,49,0.03)); border-color: rgba(247,183,49,0.3); }
+  .phase-3 .phase-header h2 { color: var(--accent3); }
+  .phase-4 .phase-header { background: linear-gradient(135deg, rgba(253,150,68,0.08), rgba(253,150,68,0.03)); border-color: rgba(253,150,68,0.3); }
+  .phase-4 .phase-header h2 { color: var(--orange); }
+  .phase-5 .phase-header { background: linear-gradient(135deg, rgba(253,121,168,0.08), rgba(253,121,168,0.03)); border-color: rgba(253,121,168,0.3); }
+  .phase-5 .phase-header h2 { color: var(--pink); }
+  .phase-6 .phase-header { background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(108,99,255,0.03)); border-color: rgba(108,99,255,0.3); }
+  .phase-6 .phase-header h2 { color: var(--accent); }
+
+  /* STEP */
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  .step h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .step-badge {
+    font-size: 11px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-weight: 600;
+  }
+  .step p {
+    color: #b0b8d8;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .step ul, .step ol {
+    padding-left: 20px;
+    color: #b0b8d8;
+    font-size: 15px;
+  }
+  .step li { margin-bottom: 6px; }
+  .step li strong { color: var(--text); }
+
+  /* ANALOGY BOX */
+  .analogy {
+    background: rgba(247,183,49,0.07);
+    border: 1px solid rgba(247,183,49,0.25);
+    border-left: 4px solid var(--accent3);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+  }
+  .analogy .analogy-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 6px;
+  }
+  .analogy p {
+    color: #d4b896 !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+    font-style: italic;
+  }
+
+  /* KEY CONCEPTS */
+  .concepts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .concept-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .concept-tag span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .tool-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .tool-card .tool-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .tool-card .tool-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tool-card a {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .tool-card a:hover { text-decoration: underline; }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: #e6edf3;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  .code-block .comment { color: #8b949e; }
+  .code-block .keyword { color: #ff7b72; }
+  .code-block .string { color: #a5d6ff; }
+  .code-block .func { color: #d2a8ff; }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .data-table th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #b0b8d8;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* YOUTUBE RESOURCES */
+  .yt-section {
+    background: rgba(255,0,0,0.04);
+    border: 1px solid rgba(255,80,80,0.2);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin: 20px 0;
+  }
+  .yt-section .yt-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff6b6b;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .yt-channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+  .yt-channel {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .yt-channel:hover {
+    border-color: rgba(255,100,100,0.4);
+    background: rgba(255,0,0,0.06);
+  }
+  .yt-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .yt-info .yt-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .yt-info .yt-focus {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* QUIZ */
+  .quiz {
+    background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(0,201,167,0.05));
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 32px;
+  }
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .quiz-header h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .quiz-badge {
+    background: rgba(108,99,255,0.2);
+    border: 1px solid rgba(108,99,255,0.4);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .question {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .question .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .question .q-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .options {
+    display: grid;
+    gap: 6px;
+  }
+  .option {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #b0b8d8;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .option:hover { border-color: var(--accent); color: var(--text); }
+  .option.correct { background: rgba(38,222,129,0.1); border-color: var(--green); color: var(--green); }
+  .option.wrong { background: rgba(252,92,101,0.1); border-color: var(--accent4); color: var(--accent4); }
+  .opt-letter {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .quiz-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* SECTION DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* INFO BOX */
+  .info-box {
+    background: rgba(69,170,242,0.07);
+    border: 1px solid rgba(69,170,242,0.25);
+    border-left: 4px solid var(--blue);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 14px 0;
+  }
+  .info-box p {
+    color: #9ecff0 !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    padding: 0;
+  }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    color: #b0b8d8;
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+  /* MILESTONE */
+  .milestone {
+    background: linear-gradient(135deg, rgba(38,222,129,0.08), rgba(38,222,129,0.03));
+    border: 1px solid rgba(38,222,129,0.25);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: #9ef5cc;
+  }
+  .milestone strong { color: var(--green); }
+
+  /* SCROLL PROGRESS */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index: 999;
+    transition: width 0.1s;
+    width: 0%;
+  }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 100;
+  }
+  .back-top.visible { opacity: 1; }
+
+  /* ROADMAP OVERVIEW */
+  .roadmap-overview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 40px;
+  }
+  .roadmap-overview h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .roadmap-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .roadmap-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .roadmap-step:last-child { border-bottom: none; }
+  .step-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .step-meta { flex: 1; }
+  .step-meta .step-title { font-weight: 700; font-size: 14px; color: var(--text); }
+  .step-meta .step-time { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 16px 32px; }
+    .container { padding: 0 16px 60px; }
+    .phase-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .yt-channels { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .concepts { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📊 Complete Course</div>
+  <h1>Data Analysis<br>Learning Roadmap</h1>
+  <p>A structured, instructor-led guide from absolute zero to job-ready Data Analyst — with lessons, analogies, tools, and quizzes at every stage.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Stages</div></div>
+    <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Steps</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Quizzes</div></div>
+    <div class="stat"><div class="stat-num">~6mo</div><div class="stat-label">Duration</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- INSTRUCTOR NOTE -->
+  <div class="instructor-note" style="margin-top:40px;">
+    <div class="label">👋 From Your Instructor</div>
+    <p>Welcome, student. This course is designed to take you from zero knowledge to a fully functional Data Analyst — step by step. Every section includes plain explanations, real-world analogies so you can understand the concept in familiar terms, the tools you need to install, YouTube resources for visual learning, and a quiz at the end to test your understanding. Take your time with each stage. There is no rush — depth beats speed in this field.</p>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc" id="toc">
+    <h2>📋 Table of Contents</h2>
+    <div class="toc-grid">
+      <a href="#stage1" class="toc-item"><div class="toc-dot" style="background:#26de81"></div><span class="toc-num">01</span> Stage 1 — Foundations</a>
+      <a href="#stage2" class="toc-item"><div class="toc-dot" style="background:#45aaf2"></div><span class="toc-num">02</span> Stage 2 — SQL</a>
+      <a href="#stage3" class="toc-item"><div class="toc-dot" style="background:#f7b731"></div><span class="toc-num">03</span> Stage 3 — Python</a>
+      <a href="#stage4" class="toc-item"><div class="toc-dot" style="background:#fd9644"></div><span class="toc-num">04</span> Stage 4 — Data Visualization</a>
+      <a href="#stage5" class="toc-item"><div class="toc-dot" style="background:#fd79a8"></div><span class="toc-num">05</span> Stage 5 — BI Tools</a>
+      <a href="#stage6" class="toc-item"><div class="toc-dot" style="background:#6c63ff"></div><span class="toc-num">06</span> Stage 6 — Projects & Portfolio</a>
+      <a href="#tools" class="toc-item"><div class="toc-dot" style="background:#00c9a7"></div><span class="toc-num">07</span> Tools & Installations</a>
+      <a href="#channels" class="toc-item"><div class="toc-dot" style="background:#ff6b6b"></div><span class="toc-num">08</span> YouTube Channel Directory</a>
+    </div>
+  </div>
+
+  <!-- ROADMAP OVERVIEW -->
+  <div class="roadmap-overview">
+    <h2>🗺️ Full Roadmap at a Glance</h2>
+    <div class="roadmap-steps">
+      <div class="roadmap-step"><div class="step-circle" style="background:#26de81">1</div><div class="step-meta"><div class="step-title">Foundations — What is Data Analysis + Math & Statistics + Excel</div><div class="step-time">Week 1–4 · Beginner</div></div></div>
+      <div class="roadmap-step"><div class="step-circle" style="background:#45aaf2">2</div><div class="step-meta"><div class="step-title">SQL — Query, Filter, Join and Aggregate Data from Databases</div><div class="step-time">Week 5–8 · Beginner–Intermediate</div></div></div>
+      <div class="roadmap-step"><div class="step-circle" style="background:#f7b731">3</div><div class="step-meta"><div class="step-title">Python — Pandas, NumPy, Data Wrangling & Cleaning</div><div class="step-time">Week 9–16 · Intermediate</div></div></div>
+      <div class="roadmap-step"><div class="step-circle" style="background:#fd9644">4</div><div class="step-meta"><div class="step-title">Data Visualization — Charts, Storytelling, Matplotlib & Seaborn</div><div class="step-time">Week 13–18 · Intermediate</div></div></div>
+      <div class="roadmap-step"><div class="step-circle" style="background:#fd79a8">5</div><div class="step-meta"><div class="step-title">BI Tools — Power BI & Tableau Dashboards</div><div class="step-time">Week 17–22 · Intermediate</div></div></div>
+      <div class="roadmap-step"><div class="step-circle" style="background:#6c63ff">6</div><div class="step-meta"><div class="step-title">Portfolio Projects — GitHub, Real-World Case Studies & Job Prep</div><div class="step-time">Week 21–26 · Advanced</div></div></div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 1 ===================== -->
+  <div class="phase phase-1" id="stage1">
+    <div class="phase-header">
+      <div class="phase-icon">🟢</div>
+      <div>
+        <h2>STAGE 1 — Foundations</h2>
+        <div class="duration">Week 1–4 · What Data Analysis Is, Statistics & Excel</div>
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <h3>Step 1 — What Is Data Analysis? <span class="step-badge">Conceptual</span></h3>
+      <p>Before writing a single formula or line of code, you need to understand <strong>what a Data Analyst actually does</strong> and why it matters.</p>
+      <p>Data Analysis is the process of <strong>inspecting, cleaning, transforming, and modeling data</strong> to discover useful information, draw conclusions, and support decision-making.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Think of data like raw crude oil from the ground. It has value, but in its raw state you cannot use it. A data analyst is like the refinery — taking that raw oil (data), processing it, removing impurities (cleaning), and turning it into fuel (insights) that powers business decisions.</p>
+      </div>
+
+      <p><strong>Types of Data Analysis:</strong></p>
+      <div class="concepts">
+        <div class="concept-tag">Descriptive<span>What happened?</span></div>
+        <div class="concept-tag">Diagnostic<span>Why did it happen?</span></div>
+        <div class="concept-tag">Predictive<span>What will happen?</span></div>
+        <div class="concept-tag">Prescriptive<span>What should we do?</span></div>
+      </div>
+
+      <p><strong>Roles to Know:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Role</th><th>Focus</th><th>Key Tools</th></tr></thead>
+        <tbody>
+          <tr><td>Data Analyst</td><td>Reports, dashboards, insights</td><td>SQL, Excel, Power BI, Python</td></tr>
+          <tr><td>Data Scientist</td><td>ML models, prediction</td><td>Python, R, TensorFlow</td></tr>
+          <tr><td>Data Engineer</td><td>Pipelines, databases</td><td>SQL, Spark, Airflow, AWS</td></tr>
+        </tbody>
+      </table>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/watch?v=rGx1QNdYzvs&list=PLUaB-1hjhk8H48Pj32z4GZgGWyylqv85f" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ FREE Data Analyst Bootcamp — Full Playlist (70 videos)</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=CUBfrdDwznQ" target="_blank" class="yt-channel">
+            <div class="yt-avatar">K</div>
+            <div class="yt-info"><div class="yt-name">Ken Jee</div><div class="yt-focus">▶ How to Become a Data Analyst (Completely FREE)</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <h3>Step 2 — Mathematics & Statistics <span class="step-badge">Core Theory</span></h3>
+      <p>You do not need to be a mathematician. But you need to understand the language that data speaks. Statistics is that language.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Statistics is to data analysis what grammar is to English. You can speak informally without it, but if you don't know the rules, you'll misunderstand and mislead. Without statistics, you might look at data and draw completely wrong conclusions.</p>
+      </div>
+
+      <p><strong>Topics to Cover:</strong></p>
+      <ul>
+        <li><strong>Descriptive Statistics:</strong> Mean, Median, Mode, Range, Variance, Standard Deviation</li>
+        <li><strong>Percentiles & Quartiles:</strong> IQR, Outlier Detection (Box Plot)</li>
+        <li><strong>Probability Basics:</strong> Events, probability rules, conditional probability</li>
+        <li><strong>Distributions:</strong> Normal distribution (bell curve), Skewness, Kurtosis</li>
+        <li><strong>Inferential Statistics:</strong> Hypothesis testing, p-value, confidence intervals</li>
+        <li><strong>Correlation vs Causation:</strong> R-value, Pearson Correlation, Scatter plots</li>
+      </ul>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy — Mean vs Median</div>
+        <p>Imagine 10 students' test scores: 40, 45, 50, 55, 60, 62, 65, 68, 70, 200. The mean is 71.5 — pulled up by the outlier (200). The median is 61. Which one actually represents the class better? The median! This is why data analysts must choose the right measure of central tendency.</p>
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9" target="_blank" class="yt-channel">
+            <div class="yt-avatar">S</div>
+            <div class="yt-info"><div class="yt-name">StatQuest — Josh Starmer</div><div class="yt-focus">▶ Statistics Fundamentals — Full Playlist (30+ videos)</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=xxpc-HPKN28" target="_blank" class="yt-channel">
+            <div class="yt-avatar">K</div>
+            <div class="yt-info"><div class="yt-name">Ken Jee</div><div class="yt-focus">▶ Statistics for Data Science — Full Introduction</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <h3>Step 3 — Microsoft Excel / Google Sheets <span class="step-badge">Practical</span></h3>
+      <p>Excel is the most widely used data tool in the world. Even companies that use Python and Power BI still use Excel daily. It is your first real data tool.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Excel is like learning to cook on a regular stove before using an industrial kitchen. Once you master this, everything else feels powerful by comparison.</p>
+      </div>
+
+      <p><strong>What to Learn in Excel:</strong></p>
+      <ul>
+        <li>Navigation, cell references (relative vs absolute: A1 vs $A$1)</li>
+        <li>Formulas: SUM, AVERAGE, COUNT, COUNTA, IF, IFS, AND, OR</li>
+        <li>Lookup functions: VLOOKUP, HLOOKUP, INDEX-MATCH, XLOOKUP</li>
+        <li>Text functions: LEFT, RIGHT, MID, TRIM, CONCATENATE, TEXT</li>
+        <li>Date functions: TODAY, NOW, DATEDIF, YEAR, MONTH, DAY</li>
+        <li>Data Cleaning: Remove Duplicates, Text to Columns, Find & Replace</li>
+        <li>Pivot Tables — summarizing thousands of rows in seconds</li>
+        <li>Charts: Bar, Line, Pie, Scatter, Histogram</li>
+        <li>Conditional Formatting — highlighting patterns visually</li>
+        <li>Data Validation — controlling what users can enter</li>
+      </ul>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy — Pivot Tables</div>
+        <p>A Pivot Table is like a magic summarizer. Imagine you have 10,000 rows of sales data with product names, regions, and amounts. A Pivot Table lets you instantly see "total sales per region per product" without writing a single formula — just drag and drop. It is one of the most powerful tools any analyst can master.</p>
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8Ophe0EziSEmxzSZDosB4Kw" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ Excel Tutorials for Beginners — Full Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=pCJ15nGFgVg" target="_blank" class="yt-channel">
+            <div class="yt-avatar">L</div>
+            <div class="yt-info"><div class="yt-name">Luke Barousse</div><div class="yt-focus">▶ Excel for Data Analytics — Full Course for Beginners</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 1 Milestone:</strong> You should be able to take a raw CSV file, open it in Excel, clean it, build a Pivot Table and produce a chart from it before moving on.
+      </div>
+    </div>
+
+    <!-- STAGE 1 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 1 Quiz</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">A company wants to know "What will our sales look like next quarter?" — What type of analysis is this?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Descriptive Analysis</div>
+          <div class="option"><span class="opt-letter">B</span> Diagnostic Analysis</div>
+          <div class="option correct"><span class="opt-letter">C</span> Predictive Analysis ✓</div>
+          <div class="option"><span class="opt-letter">D</span> Prescriptive Analysis</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">Your dataset has values: 10, 12, 14, 16, 200. Which measure of central tendency best represents a "typical" value?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Mean</div>
+          <div class="option correct"><span class="opt-letter">B</span> Median ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Mode</div>
+          <div class="option"><span class="opt-letter">D</span> Standard Deviation</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">In Excel, which function would you use to look up a value in the first column of a table and return a value from another column?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> SUMIF</div>
+          <div class="option"><span class="opt-letter">B</span> COUNTIF</div>
+          <div class="option correct"><span class="opt-letter">C</span> VLOOKUP ✓</div>
+          <div class="option"><span class="opt-letter">D</span> AVERAGE</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">What does a high standard deviation in a dataset indicate?</div>
+        <div class="options">
+          <div class="option correct"><span class="opt-letter">A</span> Data points are spread far from the mean ✓</div>
+          <div class="option"><span class="opt-letter">B</span> Data points are clustered close to the mean</div>
+          <div class="option"><span class="opt-letter">C</span> The dataset has no outliers</div>
+          <div class="option"><span class="opt-letter">D</span> The mean equals the median</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">What Excel feature allows you to summarize thousands of rows of data into a grouped report using drag-and-drop?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Conditional Formatting</div>
+          <div class="option"><span class="opt-letter">B</span> Data Validation</div>
+          <div class="option correct"><span class="opt-letter">C</span> Pivot Table ✓</div>
+          <div class="option"><span class="opt-letter">D</span> VLOOKUP</div>
+        </div>
+      </div>
+
+      <div class="quiz-note">📌 Review any question you got wrong before proceeding to Stage 2. The answers marked ✓ are correct.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 2 ===================== -->
+  <div class="phase phase-2" id="stage2">
+    <div class="phase-header">
+      <div class="phase-icon">🔵</div>
+      <div>
+        <h2>STAGE 2 — SQL (Structured Query Language)</h2>
+        <div class="duration">Week 5–8 · Talk to Databases Like a Pro</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 4 — SQL Fundamentals <span class="step-badge">Core Skill</span></h3>
+      <p>SQL is the language you use to communicate with databases. Almost every company stores data in a database, and as an analyst, SQL is your most important technical skill. No SQL = no job.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Think of a database as a massive library with millions of books (rows of data). SQL is how you ask the librarian for exactly what you need: "Give me all books written after 2010 by Nigerian authors, sorted by title." Without SQL, you'd have to manually search every shelf.</p>
+      </div>
+
+      <p><strong>Basic SQL — The Building Blocks:</strong></p>
+      <div class="code-block">
+<span class="comment">-- Select all columns from a table</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> customers;
+
+<span class="comment">-- Select specific columns</span>
+<span class="keyword">SELECT</span> name, email, city <span class="keyword">FROM</span> customers;
+
+<span class="comment">-- Filter with WHERE</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> orders <span class="keyword">WHERE</span> total_amount > 1000;
+
+<span class="comment">-- Sort results</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products <span class="keyword">ORDER BY</span> price <span class="keyword">DESC</span>;
+
+<span class="comment">-- Limit rows returned</span>
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> sales <span class="keyword">LIMIT</span> 10;
+      </div>
+
+      <p><strong>Intermediate SQL — Aggregation & Grouping:</strong></p>
+      <div class="code-block">
+<span class="comment">-- Count rows</span>
+<span class="keyword">SELECT</span> <span class="func">COUNT</span>(*) <span class="keyword">FROM</span> orders;
+
+<span class="comment">-- Total sales per region</span>
+<span class="keyword">SELECT</span> region, <span class="func">SUM</span>(revenue) <span class="keyword">AS</span> total_revenue
+<span class="keyword">FROM</span> sales
+<span class="keyword">GROUP BY</span> region
+<span class="keyword">HAVING</span> <span class="func">SUM</span>(revenue) > 50000
+<span class="keyword">ORDER BY</span> total_revenue <span class="keyword">DESC</span>;
+      </div>
+
+      <p><strong>SQL JOINs — The Most Important Concept:</strong></p>
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy — JOINs</div>
+        <p>Imagine you have two notebooks: one has student names and IDs, another has student scores and IDs. A JOIN combines them using the ID — so you can see each student's name alongside their score. INNER JOIN gives you only students in both books. LEFT JOIN gives you all students from the first book, even if they have no score.</p>
+      </div>
+
+      <div class="code-block">
+<span class="comment">-- INNER JOIN — only matching rows</span>
+<span class="keyword">SELECT</span> c.name, o.order_date, o.amount
+<span class="keyword">FROM</span> customers c
+<span class="keyword">INNER JOIN</span> orders o <span class="keyword">ON</span> c.id = o.customer_id;
+
+<span class="comment">-- LEFT JOIN — all customers, even without orders</span>
+<span class="keyword">SELECT</span> c.name, o.amount
+<span class="keyword">FROM</span> customers c
+<span class="keyword">LEFT JOIN</span> orders o <span class="keyword">ON</span> c.id = o.customer_id;
+      </div>
+
+      <p><strong>Advanced SQL — Window Functions & CTEs:</strong></p>
+      <div class="code-block">
+<span class="comment">-- Rank salespeople by revenue</span>
+<span class="keyword">SELECT</span> name, revenue,
+  <span class="func">RANK</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> revenue <span class="keyword">DESC</span>) <span class="keyword">AS</span> rank
+<span class="keyword">FROM</span> salespeople;
+
+<span class="comment">-- CTE — Common Table Expression</span>
+<span class="keyword">WITH</span> top_customers <span class="keyword">AS</span> (
+  <span class="keyword">SELECT</span> customer_id, <span class="func">SUM</span>(amount) <span class="keyword">AS</span> total
+  <span class="keyword">FROM</span> orders
+  <span class="keyword">GROUP BY</span> customer_id
+)
+<span class="keyword">SELECT</span> c.name, t.total
+<span class="keyword">FROM</span> top_customers t
+<span class="keyword">JOIN</span> customers c <span class="keyword">ON</span> c.id = t.customer_id;
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8GT6N5ne2qpf603sF26m2PW" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ SQL Tutorials — Basics to Advanced Full Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=7mz73uXD9DA" target="_blank" class="yt-channel">
+            <div class="yt-avatar">L</div>
+            <div class="yt-info"><div class="yt-name">Luke Barousse</div><div class="yt-focus">▶ SQL for Data Analytics — Full Course (4 Hours)</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=a-C9kChQBKE" target="_blank" class="yt-channel">
+            <div class="yt-avatar">K</div>
+            <div class="yt-info"><div class="yt-name">Ken Jee</div><div class="yt-focus">▶ Learn SQL for Data Science — Beginner to Pro</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 2 Milestone:</strong> Build and query a database of your own. Start with a "Sales DB" — create tables for customers, products, and orders, insert data, and write 10 queries covering SELECT, JOINs, GROUP BY, and Window Functions.
+      </div>
+    </div>
+
+    <!-- STAGE 2 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 2 Quiz</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Which SQL clause is used to filter results AFTER a GROUP BY has been applied?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> WHERE</div>
+          <div class="option correct"><span class="opt-letter">B</span> HAVING ✓</div>
+          <div class="option"><span class="opt-letter">C</span> ORDER BY</div>
+          <div class="option"><span class="opt-letter">D</span> LIMIT</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">What type of JOIN returns ALL rows from the left table and only matching rows from the right table?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> INNER JOIN</div>
+          <div class="option correct"><span class="opt-letter">B</span> LEFT JOIN ✓</div>
+          <div class="option"><span class="opt-letter">C</span> RIGHT JOIN</div>
+          <div class="option"><span class="opt-letter">D</span> FULL OUTER JOIN</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">What does the SQL keyword DISTINCT do?</div>
+        <div class="options">
+          <div class="option correct"><span class="opt-letter">A</span> Removes duplicate rows from results ✓</div>
+          <div class="option"><span class="opt-letter">B</span> Sorts results alphabetically</div>
+          <div class="option"><span class="opt-letter">C</span> Filters NULL values</div>
+          <div class="option"><span class="opt-letter">D</span> Groups rows together</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">A CTE (Common Table Expression) is defined using which keyword?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> DECLARE</div>
+          <div class="option"><span class="opt-letter">B</span> DEFINE</div>
+          <div class="option correct"><span class="opt-letter">C</span> WITH ✓</div>
+          <div class="option"><span class="opt-letter">D</span> TEMP</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">Which SQL function would you use to assign a rank to each row within a result set based on a column value?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> COUNT()</div>
+          <div class="option"><span class="opt-letter">B</span> ROW_NUMBER()</div>
+          <div class="option correct"><span class="opt-letter">C</span> RANK() OVER() ✓</div>
+          <div class="option"><span class="opt-letter">D</span> MAX()</div>
+        </div>
+      </div>
+      <div class="quiz-note">📌 Practice on HackerRank SQL challenges and LeetCode Database problems after this stage.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 3 ===================== -->
+  <div class="phase phase-3" id="stage3">
+    <div class="phase-header">
+      <div class="phase-icon">🟡</div>
+      <div>
+        <h2>STAGE 3 — Python for Data Analysis</h2>
+        <div class="duration">Week 9–16 · Pandas, NumPy & Data Wrangling</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 5 — Python Basics <span class="step-badge">Programming</span></h3>
+      <p>Python is the dominant programming language in data analysis. It is readable, powerful, and has an enormous ecosystem of libraries built specifically for working with data.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>If Excel is a calculator, Python is a full factory floor. Python doesn't just compute one formula — it can automate an entire workflow: pull data from an API, clean it, analyze it, generate 50 charts, and email a report — all in one script while you sleep.</p>
+      </div>
+
+      <p><strong>Core Python Concepts for Analysts:</strong></p>
+      <div class="code-block">
+<span class="comment"># Variables and data types</span>
+name = <span class="string">"Emmanuel"</span>
+age = 21
+revenue = 45000.50
+is_active = <span class="keyword">True</span>
+
+<span class="comment"># Lists (like arrays)</span>
+scores = [85, 90, 78, 92, 88]
+print(<span class="func">sum</span>(scores) / <span class="func">len</span>(scores))  <span class="comment"># Average</span>
+
+<span class="comment"># Dictionaries (key-value pairs)</span>
+student = {<span class="string">"name"</span>: <span class="string">"Ada"</span>, <span class="string">"score"</span>: 95, <span class="string">"grade"</span>: <span class="string">"A"</span>}
+print(student[<span class="string">"name"</span>])
+
+<span class="comment"># Loops</span>
+<span class="keyword">for</span> score <span class="keyword">in</span> scores:
+    print(score)
+
+<span class="comment"># Functions</span>
+<span class="keyword">def</span> <span class="func">get_average</span>(data):
+    <span class="keyword">return</span> <span class="func">sum</span>(data) / <span class="func">len</span>(data)
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7" target="_blank" class="yt-channel">
+            <div class="yt-avatar">C</div>
+            <div class="yt-info"><div class="yt-name">Corey Schafer</div><div class="yt-focus">▶ Python Tutorials for Beginners — Full Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=r-uOLxNrNk8" target="_blank" class="yt-channel">
+            <div class="yt-avatar">G</div>
+            <div class="yt-info"><div class="yt-name">Keith Galli</div><div class="yt-focus">▶ Complete Python for Data Analysis — Beginner to Pro</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 6 — NumPy & Pandas <span class="step-badge">Data Libraries</span></h3>
+      <p>These two libraries are the backbone of data analysis in Python. You cannot do serious data work without them.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy — Pandas</div>
+        <p>Pandas is Excel inside Python — but with superpowers. A Pandas DataFrame is like a spreadsheet: rows and columns of data. The difference? Python can process millions of rows in seconds, do complex transformations, and integrate with every other tool in the data ecosystem.</p>
+      </div>
+
+      <p><strong>NumPy — Numerical Computing:</strong></p>
+      <div class="code-block">
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+arr = np.<span class="func">array</span>([10, 20, 30, 40, 50])
+print(np.<span class="func">mean</span>(arr))    <span class="comment"># 30.0</span>
+print(np.<span class="func">std</span>(arr))     <span class="comment"># Standard deviation</span>
+print(np.<span class="func">max</span>(arr))     <span class="comment"># 50</span>
+
+<span class="comment"># Create arrays fast</span>
+zeros = np.<span class="func">zeros</span>((3, 4))   <span class="comment"># 3x4 matrix of zeros</span>
+rng = np.<span class="func">arange</span>(0, 100, 5)  <span class="comment"># [0, 5, 10 ... 95]</span>
+      </div>
+
+      <p><strong>Pandas — Data Manipulation:</strong></p>
+      <div class="code-block">
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># Load a CSV file</span>
+df = pd.<span class="func">read_csv</span>(<span class="string">"sales_data.csv"</span>)
+
+<span class="comment"># Quick overview</span>
+df.<span class="func">head</span>()        <span class="comment"># First 5 rows</span>
+df.<span class="func">shape</span>         <span class="comment"># (rows, columns)</span>
+df.<span class="func">info</span>()         <span class="comment"># Data types and nulls</span>
+df.<span class="func">describe</span>()     <span class="comment"># Summary stats</span>
+
+<span class="comment"># Filter rows</span>
+high_sales = df[df[<span class="string">"revenue"</span>] > 10000]
+
+<span class="comment"># Group and aggregate</span>
+region_sales = df.<span class="func">groupby</span>(<span class="string">"region"</span>)[<span class="string">"revenue"</span>].<span class="func">sum</span>()
+
+<span class="comment"># Handle missing values</span>
+df.<span class="func">dropna</span>()               <span class="comment"># Drop rows with nulls</span>
+df.<span class="func">fillna</span>(0)              <span class="comment"># Fill nulls with 0</span>
+df[<span class="string">"col"</span>].<span class="func">fillna</span>(df[<span class="string">"col"</span>].<span class="func">mean</span>())  <span class="comment"># Fill with mean</span>
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTsWmV9i9c58mdDCSskIFdDS" target="_blank" class="yt-channel">
+            <div class="yt-avatar">C</div>
+            <div class="yt-info"><div class="yt-name">Corey Schafer</div><div class="yt-focus">▶ Pandas Tutorial — Full Playlist (11 videos)</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=2uvysYbKdjM" target="_blank" class="yt-channel">
+            <div class="yt-avatar">G</div>
+            <div class="yt-info"><div class="yt-name">Keith Galli</div><div class="yt-focus">▶ Complete Python Pandas Data Science Tutorial (2024)</div></div>
+          </a>
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8HqnmK0gFTE4E1YLFbZUmQY" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ Python for Data Analysts — Full Playlist</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 3 Milestone:</strong> Load a real-world dataset (from Kaggle), clean it using Pandas (handle nulls, fix data types, remove duplicates), and compute group-level summary statistics. Save the cleaned version to a new CSV.
+      </div>
+    </div>
+
+    <!-- STAGE 3 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 3 Quiz</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Which Pandas method gives you a quick statistical summary of all numeric columns in a DataFrame?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> df.info()</div>
+          <div class="option"><span class="opt-letter">B</span> df.head()</div>
+          <div class="option correct"><span class="opt-letter">C</span> df.describe() ✓</div>
+          <div class="option"><span class="opt-letter">D</span> df.shape</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">What does df.dropna() do in Pandas?</div>
+        <div class="options">
+          <div class="option correct"><span class="opt-letter">A</span> Removes rows with missing (NaN) values ✓</div>
+          <div class="option"><span class="opt-letter">B</span> Removes duplicate rows</div>
+          <div class="option"><span class="opt-letter">C</span> Drops columns with zero values</div>
+          <div class="option"><span class="opt-letter">D</span> Filters rows by a condition</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">In NumPy, what function creates an array of evenly spaced values from 0 to 100 in steps of 5?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> np.zeros(100)</div>
+          <div class="option correct"><span class="opt-letter">B</span> np.arange(0, 100, 5) ✓</div>
+          <div class="option"><span class="opt-letter">C</span> np.linspace(0, 5, 100)</div>
+          <div class="option"><span class="opt-letter">D</span> np.array(range(0,5,100))</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">Which Pandas method is used to aggregate data by a category column (e.g. total sales per region)?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> df.sort_values()</div>
+          <div class="option"><span class="opt-letter">B</span> df.merge()</div>
+          <div class="option correct"><span class="opt-letter">C</span> df.groupby() ✓</div>
+          <div class="option"><span class="opt-letter">D</span> df.pivot()</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">What is a Lambda function in Python?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> A function stored in a library</div>
+          <div class="option correct"><span class="opt-letter">B</span> A small anonymous function defined in one line ✓</div>
+          <div class="option"><span class="opt-letter">C</span> A loop that runs once</div>
+          <div class="option"><span class="opt-letter">D</span> A Python class method</div>
+        </div>
+      </div>
+      <div class="quiz-note">📌 Practice with Kaggle's free Python and Pandas micro-courses after this stage.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 4 ===================== -->
+  <div class="phase phase-4" id="stage4">
+    <div class="phase-header">
+      <div class="phase-icon">🟠</div>
+      <div>
+        <h2>STAGE 4 — Data Visualization</h2>
+        <div class="duration">Week 13–18 · Tell Stories With Data</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 7 — Visualization Principles & Python Libraries <span class="step-badge">Visual</span></h3>
+      <p>Data without visualization is like a map without a legend. Your audience cannot act on numbers alone — you need to turn data into pictures that communicate insights instantly.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Imagine presenting Nigeria's population growth from 1960 to 2024 as a table of 64 numbers vs a single line chart. The chart tells the story in 1 second. A table takes 3 minutes to comprehend. Visualization is not decoration — it is communication.</p>
+      </div>
+
+      <p><strong>When to Use Which Chart:</strong></p>
+      <table class="data-table">
+        <thead><tr><th>Chart Type</th><th>Best Used For</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Bar Chart</td><td>Comparing categories</td><td>Sales by region</td></tr>
+          <tr><td>Line Chart</td><td>Trends over time</td><td>Monthly revenue</td></tr>
+          <tr><td>Scatter Plot</td><td>Relationship between 2 variables</td><td>Height vs Weight</td></tr>
+          <tr><td>Histogram</td><td>Distribution of a single variable</td><td>Age distribution</td></tr>
+          <tr><td>Pie/Donut</td><td>Part-to-whole (use sparingly)</td><td>Market share</td></tr>
+          <tr><td>Heatmap</td><td>Correlation matrix, patterns</td><td>Feature correlations</td></tr>
+          <tr><td>Box Plot</td><td>Distribution + outliers</td><td>Salary ranges by department</td></tr>
+        </tbody>
+      </table>
+
+      <p><strong>Matplotlib — Basic Plotting:</strong></p>
+      <div class="code-block">
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+months = [<span class="string">"Jan"</span>, <span class="string">"Feb"</span>, <span class="string">"Mar"</span>, <span class="string">"Apr"</span>]
+revenue = [45000, 52000, 49000, 61000]
+
+plt.<span class="func">figure</span>(figsize=(10, 5))
+plt.<span class="func">plot</span>(months, revenue, marker=<span class="string">"o"</span>, color=<span class="string">"#6c63ff"</span>)
+plt.<span class="func">title</span>(<span class="string">"Monthly Revenue 2024"</span>)
+plt.<span class="func">xlabel</span>(<span class="string">"Month"</span>)
+plt.<span class="func">ylabel</span>(<span class="string">"Revenue (₦)"</span>)
+plt.<span class="func">grid</span>(<span class="keyword">True</span>, alpha=0.3)
+plt.<span class="func">tight_layout</span>()
+plt.<span class="func">show</span>()
+      </div>
+
+      <p><strong>Seaborn — Statistical Visualization:</strong></p>
+      <div class="code-block">
+<span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
+
+<span class="comment"># Correlation heatmap</span>
+sns.<span class="func">heatmap</span>(df.<span class="func">corr</span>(), annot=<span class="keyword">True</span>, cmap=<span class="string">"coolwarm"</span>)
+
+<span class="comment"># Distribution plot</span>
+sns.<span class="func">histplot</span>(df[<span class="string">"age"</span>], bins=20, kde=<span class="keyword">True</span>)
+
+<span class="comment"># Box plot</span>
+sns.<span class="func">boxplot</span>(x=<span class="string">"department"</span>, y=<span class="string">"salary"</span>, data=df)
+
+<span class="comment"># Scatter plot with color by category</span>
+sns.<span class="func">scatterplot</span>(x=<span class="string">"experience"</span>, y=<span class="string">"salary"</span>, hue=<span class="string">"gender"</span>, data=df)
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_" target="_blank" class="yt-channel">
+            <div class="yt-avatar">C</div>
+            <div class="yt-info"><div class="yt-name">Corey Schafer</div><div class="yt-focus">▶ Matplotlib Tutorials — Full Playlist (10 videos)</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=0P7QnIQDBJY" target="_blank" class="yt-channel">
+            <div class="yt-avatar">G</div>
+            <div class="yt-info"><div class="yt-name">Keith Galli</div><div class="yt-focus">▶ Complete Data Visualization with Python — Matplotlib & Seaborn</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=HTK6Qn55fEk" target="_blank" class="yt-channel">
+            <div class="yt-avatar">S</div>
+            <div class="yt-info"><div class="yt-name">StatQuest</div><div class="yt-focus">▶ Data Visualization — Histograms & Box Plots Clearly Explained</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 4 Milestone:</strong> Pick a real dataset from Kaggle and create a complete Exploratory Data Analysis (EDA) notebook — at least 5 different chart types with proper titles, labels, and a written insight for each chart.
+      </div>
+    </div>
+
+    <!-- STAGE 4 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 4 Quiz</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">Which chart type is BEST for showing how a value changes over time?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Bar Chart</div>
+          <div class="option correct"><span class="opt-letter">B</span> Line Chart ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Pie Chart</div>
+          <div class="option"><span class="opt-letter">D</span> Heatmap</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">You want to show the distribution of exam scores across 500 students. Which chart is most appropriate?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Scatter Plot</div>
+          <div class="option"><span class="opt-letter">B</span> Line Chart</div>
+          <div class="option correct"><span class="opt-letter">C</span> Histogram ✓</div>
+          <div class="option"><span class="opt-letter">D</span> Pie Chart</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">In Seaborn, what does a heatmap with correlation values help you identify?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Missing values in a dataset</div>
+          <div class="option correct"><span class="opt-letter">B</span> Relationships between numeric variables ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Outliers in a single column</div>
+          <div class="option"><span class="opt-letter">D</span> Category counts</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">What does the KDE (Kernel Density Estimate) line in a histogram represent?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> The cumulative sum of values</div>
+          <div class="option"><span class="opt-letter">B</span> The median line</div>
+          <div class="option correct"><span class="opt-letter">C</span> A smooth estimate of the data distribution ✓</div>
+          <div class="option"><span class="opt-letter">D</span> The range of the data</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">Which Python library is typically used for interactive, web-based charts?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Matplotlib</div>
+          <div class="option"><span class="opt-letter">B</span> Seaborn</div>
+          <div class="option correct"><span class="opt-letter">C</span> Plotly ✓</div>
+          <div class="option"><span class="opt-letter">D</span> NumPy</div>
+        </div>
+      </div>
+      <div class="quiz-note">📌 Submit your EDA notebook to GitHub after this stage — it becomes your first portfolio piece.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 5 ===================== -->
+  <div class="phase phase-5" id="stage5">
+    <div class="phase-header">
+      <div class="phase-icon">🩷</div>
+      <div>
+        <h2>STAGE 5 — BI Tools (Power BI & Tableau)</h2>
+        <div class="duration">Week 17–22 · Dashboards & Business Intelligence</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 8 — Power BI <span class="step-badge">BI Tool</span></h3>
+      <p>Power BI is Microsoft's Business Intelligence tool. It is free to download, widely adopted in corporate Africa and globally, and one of the most in-demand skills for analysts.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>If Python charts are hand-painted artwork, Power BI is a printing press. Power BI lets non-technical stakeholders (CEOs, managers) interact with live data through beautiful dashboards — no code needed. As an analyst, your job is to build those dashboards.</p>
+      </div>
+
+      <p><strong>Power BI Core Concepts:</strong></p>
+      <ul>
+        <li><strong>Data Sources:</strong> Connect to Excel, CSV, SQL Server, APIs, SharePoint, Google Sheets</li>
+        <li><strong>Power Query:</strong> Data transformation layer (ETL) — filter, merge, unpivot, clean</li>
+        <li><strong>Data Model:</strong> Define relationships between tables (star schema)</li>
+        <li><strong>DAX (Data Analysis Expressions):</strong> Formula language for calculated columns & measures</li>
+        <li><strong>Visuals:</strong> Bar, Line, Map, Card, Matrix, Slicers, KPI charts</li>
+        <li><strong>Reports vs Dashboards:</strong> Reports are multi-page; dashboards are pinned summary views</li>
+        <li><strong>Publishing:</strong> Share reports via Power BI Service (web)</li>
+      </ul>
+
+      <p><strong>Key DAX Formulas:</strong></p>
+      <div class="code-block">
+<span class="comment">// Total Revenue</span>
+<span class="func">Total Revenue</span> = <span class="func">SUM</span>(Sales[Revenue])
+
+<span class="comment">// Revenue Growth %</span>
+<span class="func">Revenue Growth</span> = 
+  <span class="func">DIVIDE</span>(
+    [Total Revenue] - [Last Year Revenue],
+    [Last Year Revenue]
+  ) * 100
+
+<span class="comment">// YTD Revenue</span>
+<span class="func">YTD Revenue</span> = <span class="func">TOTALYTD</span>(<span class="func">SUM</span>(Sales[Revenue]), Dates[Date])
+
+<span class="comment">// Count distinct customers</span>
+<span class="func">Unique Customers</span> = <span class="func">DISTINCTCOUNT</span>(Sales[CustomerID])
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8HqnmK0gFTE4E1YLFbZUmQY" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ Microsoft Power BI for Beginners — Full Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=c7LrqSxjJQQ" target="_blank" class="yt-channel">
+            <div class="yt-avatar">L</div>
+            <div class="yt-info"><div class="yt-name">Luke Barousse</div><div class="yt-focus">▶ Power BI for Data Analysts — Project Walkthrough</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 9 — Tableau <span class="step-badge">BI Tool</span></h3>
+      <p>Tableau is widely regarded as the most visually powerful BI tool available. Many analytics teams prefer it for its drag-and-drop dashboard creation and stunning visual output.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Tableau is like Canva for data. Power BI is like Microsoft Word for data. Both get the job done — but Tableau leans more toward beautiful visual storytelling, while Power BI leans toward deep Microsoft ecosystem integration.</p>
+      </div>
+
+      <p><strong>Tableau Core Concepts:</strong></p>
+      <ul>
+        <li>Dimensions (categorical) vs Measures (numeric)</li>
+        <li>Marks card, Rows & Columns shelf</li>
+        <li>Calculated Fields (Tableau's version of DAX)</li>
+        <li>Filters: Context filters, Quick filters, Top N</li>
+        <li>Parameters — dynamic user inputs</li>
+        <li>Dashboard actions — interactive filtering between charts</li>
+        <li>Story Points — narrative data presentations</li>
+        <li>Tableau Public — free hosting for portfolio projects</li>
+      </ul>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8GwbqoVmo_5zuhOa0Tcl3xC" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ Tableau Tutorials for Beginners — Full Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=7GnCc31b8JQ" target="_blank" class="yt-channel">
+            <div class="yt-avatar">K</div>
+            <div class="yt-info"><div class="yt-name">Ken Jee</div><div class="yt-focus">▶ Tableau Beginner Project — Full Dashboard Walkthrough</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 5 Milestone:</strong> Build a complete interactive dashboard in Power BI OR Tableau using a real dataset. It should have at least: 1 KPI card, 1 bar chart, 1 line chart, 1 slicer/filter, and a map or table. Publish it online.
+      </div>
+    </div>
+
+    <!-- STAGE 5 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 5 Quiz</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">In Power BI, what is the name of the formula language used to create calculated columns and measures?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> SQL</div>
+          <div class="option"><span class="opt-letter">B</span> M Language</div>
+          <div class="option correct"><span class="opt-letter">C</span> DAX ✓</div>
+          <div class="option"><span class="opt-letter">D</span> Python</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">In Power BI, where do you clean and transform data BEFORE loading it into the model?</div>
+        <div class="options">
+          <div class="option correct"><span class="opt-letter">A</span> Power Query Editor ✓</div>
+          <div class="option"><span class="opt-letter">B</span> DAX Studio</div>
+          <div class="option"><span class="opt-letter">C</span> Report View</div>
+          <div class="option"><span class="opt-letter">D</span> Data Model View</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">In Tableau, what is the difference between a Dimension and a Measure?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Dimensions are numbers; Measures are text</div>
+          <div class="option correct"><span class="opt-letter">B</span> Dimensions are categorical; Measures are numeric ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Dimensions filter data; Measures display data</div>
+          <div class="option"><span class="opt-letter">D</span> There is no difference</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">What does the TOTALYTD() function do in Power BI DAX?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Calculates the total for the last 12 months</div>
+          <div class="option correct"><span class="opt-letter">B</span> Calculates a cumulative total from the start of the year to a given date ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Compares two years of data</div>
+          <div class="option"><span class="opt-letter">D</span> Returns total rows in a table</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">Which free platform allows you to publish and share Tableau dashboards online for your portfolio?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Tableau Server</div>
+          <div class="option"><span class="opt-letter">B</span> Tableau Desktop</div>
+          <div class="option correct"><span class="opt-letter">C</span> Tableau Public ✓</div>
+          <div class="option"><span class="opt-letter">D</span> Tableau Prep</div>
+        </div>
+      </div>
+      <div class="quiz-note">📌 Publish both a Power BI and Tableau project. Employers love seeing both tools in your portfolio.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== STAGE 6 ===================== -->
+  <div class="phase phase-6" id="stage6">
+    <div class="phase-header">
+      <div class="phase-icon">🚀</div>
+      <div>
+        <h2>STAGE 6 — Projects, Portfolio & Job Prep</h2>
+        <div class="duration">Week 21–26 · Build Your Portfolio & Land the Job</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <h3>Step 10 — Build Real-World Projects <span class="step-badge">Portfolio</span></h3>
+      <p>Skills without evidence mean nothing. Companies want to see what you have actually built. Your portfolio is your proof.</p>
+
+      <div class="analogy">
+        <div class="analogy-label">🔍 Analogy</div>
+        <p>Your portfolio is your exhibition. Every project is a painting on the wall. Employers walk through and judge your work before ever speaking to you. The better your projects, the longer they stop and look — and the sooner they call you.</p>
+      </div>
+
+      <p><strong>Recommended Portfolio Projects:</strong></p>
+      <ul>
+        <li>📊 <strong>Sales Performance Dashboard</strong> (Power BI) — regional breakdown, monthly trends, top products</li>
+        <li>🐍 <strong>COVID-19 Data Analysis</strong> (Python/Pandas) — clean WHO data, analyze trends, visualize with Matplotlib</li>
+        <li>🗄️ <strong>E-Commerce SQL Analysis</strong> (MySQL) — customer RFM analysis, cohort retention, top products</li>
+        <li>📈 <strong>Stock Price EDA</strong> (Python/Plotly) — interactive moving averages and volume analysis</li>
+        <li>🎓 <strong>Student Performance Analysis</strong> (Excel + Tableau) — grade distribution, subject comparison</li>
+        <li>🌍 <strong>Nigeria Economic Indicators</strong> — use World Bank open data, analyze GDP, inflation, unemployment</li>
+      </ul>
+
+      <p><strong>Each Project Should Include:</strong></p>
+      <ul>
+        <li>Problem statement — what question are you answering?</li>
+        <li>Data source (with link)</li>
+        <li>Data cleaning steps</li>
+        <li>Analysis and key findings</li>
+        <li>Visualizations</li>
+        <li>Recommendations based on findings</li>
+        <li>GitHub repository with README</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <h3>Step 11 — GitHub Portfolio <span class="step-badge">Version Control</span></h3>
+      <p>Every project must live on GitHub. It is the world's code portfolio platform. Recruiters check it. It proves your work is real.</p>
+
+      <div class="code-block">
+<span class="comment"># Getting started with Git</span>
+git init
+git add .
+git commit -m <span class="string">"Add sales analysis project"</span>
+git remote add origin https://github.com/yourusername/project-name
+git push -u origin main
+
+<span class="comment"># Good README structure:</span>
+<span class="comment"># 1. Project Title</span>
+<span class="comment"># 2. Problem Statement</span>
+<span class="comment"># 3. Tools Used</span>
+<span class="comment"># 4. Key Findings</span>
+<span class="comment"># 5. Screenshots</span>
+<span class="comment"># 6. How to Run the Code</span>
+      </div>
+
+      <div class="yt-section">
+        <div class="yt-label">▶ Recommended YouTube Resource</div>
+        <div class="yt-channels">
+          <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8H48Pj32z4GZgGWyylqv85f" target="_blank" class="yt-channel">
+            <div class="yt-avatar">A</div>
+            <div class="yt-info"><div class="yt-name">Alex The Analyst</div><div class="yt-focus">▶ Data Analyst Portfolio Projects — Full Guided Playlist</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=1F4vqCEMFBo" target="_blank" class="yt-channel">
+            <div class="yt-avatar">K</div>
+            <div class="yt-info"><div class="yt-name">Ken Jee</div><div class="yt-focus">▶ How to Build a Data Science Portfolio That Gets You Hired</div></div>
+          </a>
+          <a href="https://www.youtube.com/watch?v=jG34A_d3A_k" target="_blank" class="yt-channel">
+            <div class="yt-avatar">L</div>
+            <div class="yt-info"><div class="yt-name">Luke Barousse</div><div class="yt-focus">▶ How I'd Become a Data Analyst (If Starting Over in 2024)</div></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="milestone">
+        <strong>✅ Stage 6 Milestone:</strong> Have at least 3 completed projects on GitHub with clean READMEs. Have a LinkedIn profile with your skills, tools, and project links listed. Be ready to walk through each project in an interview.
+      </div>
+    </div>
+
+    <!-- STAGE 6 QUIZ -->
+    <div class="quiz">
+      <div class="quiz-header">
+        <h3>🧠 Stage 6 Final Assessment</h3>
+        <span class="quiz-badge">5 Questions</span>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">What is the PRIMARY purpose of a README file in a GitHub repository?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> To store the dataset</div>
+          <div class="option correct"><span class="opt-letter">B</span> To explain what the project does, tools used, and key findings ✓</div>
+          <div class="option"><span class="opt-letter">C</span> To write Python code</div>
+          <div class="option"><span class="opt-letter">D</span> To track bugs in the code</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">What does RFM stand for in customer analytics?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Revenue, Frequency, Model</div>
+          <div class="option correct"><span class="opt-letter">B</span> Recency, Frequency, Monetary ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Rate, Function, Mean</div>
+          <div class="option"><span class="opt-letter">D</span> Reports, Files, Metrics</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">Which Git command saves your changes to the local repository with a message?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> git push</div>
+          <div class="option"><span class="opt-letter">B</span> git add</div>
+          <div class="option correct"><span class="opt-letter">C</span> git commit -m "message" ✓</div>
+          <div class="option"><span class="opt-letter">D</span> git init</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 4</div>
+        <div class="q-text">When presenting a data analysis project to a non-technical stakeholder (e.g. a CEO), what should you prioritize?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> Show all the code you wrote</div>
+          <div class="option"><span class="opt-letter">B</span> Explain every statistical formula used</div>
+          <div class="option correct"><span class="opt-letter">C</span> Focus on insights, business impact, and recommendations ✓</div>
+          <div class="option"><span class="opt-letter">D</span> List all data sources used</div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-num">Question 5</div>
+        <div class="q-text">Which website provides free, real-world datasets for portfolio projects?</div>
+        <div class="options">
+          <div class="option"><span class="opt-letter">A</span> GitHub</div>
+          <div class="option correct"><span class="opt-letter">B</span> Kaggle ✓</div>
+          <div class="option"><span class="opt-letter">C</span> Stack Overflow</div>
+          <div class="option"><span class="opt-letter">D</span> LinkedIn</div>
+        </div>
+      </div>
+      <div class="quiz-note">🎉 Congratulations on completing all 6 stages! You are now ready to apply for entry-level Data Analyst positions. Keep building, keep learning.</div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== TOOLS & INSTALLATION ===================== -->
+  <div id="tools">
+    <h2 style="font-size:22px;font-weight:800;color:var(--accent2);margin-bottom:24px;">🛠️ Complete Tools & Installation Guide</h2>
+
+    <div class="step">
+      <h3>PC Requirements</h3>
+      <table class="data-table">
+        <thead><tr><th>Spec</th><th>Minimum</th><th>Recommended</th></tr></thead>
+        <tbody>
+          <tr><td>RAM</td><td>8 GB</td><td>16 GB</td></tr>
+          <tr><td>Storage</td><td>128 GB HDD</td><td>256 GB+ SSD</td></tr>
+          <tr><td>Processor</td><td>Intel i3 / AMD Ryzen 3</td><td>Intel i5/i7 or AMD Ryzen 5/7</td></tr>
+          <tr><td>OS</td><td>Windows 10 / Ubuntu 20</td><td>Windows 11 / macOS / Ubuntu 22</td></tr>
+          <tr><td>Internet</td><td>Required for downloads</td><td>Stable broadband</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="step">
+      <h3>All Tools to Install — With Download Links</h3>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-name">🐍 Python 3.10+</div>
+          <div class="tool-desc">Core programming language. Check "Add to PATH" during install.</div>
+          <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🐼 Anaconda</div>
+          <div class="tool-desc">Bundles Python + Jupyter + pandas + NumPy + matplotlib + scikit-learn.</div>
+          <a href="https://www.anaconda.com/download" target="_blank">anaconda.com/download →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">💻 VS Code</div>
+          <div class="tool-desc">Best code editor. Install Python + Jupyter extensions.</div>
+          <a href="https://code.visualstudio.com/" target="_blank">code.visualstudio.com →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🐬 MySQL</div>
+          <div class="tool-desc">Most popular relational database for practice.</div>
+          <a href="https://dev.mysql.com/downloads/" target="_blank">dev.mysql.com/downloads →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🐘 PostgreSQL</div>
+          <div class="tool-desc">Enterprise-grade open source database (alternative to MySQL).</div>
+          <a href="https://www.postgresql.org/download/" target="_blank">postgresql.org/download →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🦫 DBeaver</div>
+          <div class="tool-desc">Free GUI for managing and querying any database.</div>
+          <a href="https://dbeaver.io/download/" target="_blank">dbeaver.io/download →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">📊 Power BI Desktop</div>
+          <div class="tool-desc">Microsoft BI tool. Windows only. 100% free.</div>
+          <a href="https://powerbi.microsoft.com/desktop" target="_blank">powerbi.microsoft.com →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">📈 Tableau Public</div>
+          <div class="tool-desc">Free version of Tableau with online publishing.</div>
+          <a href="https://public.tableau.com/" target="_blank">public.tableau.com →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🔧 Git</div>
+          <div class="tool-desc">Version control system. Required for GitHub.</div>
+          <a href="https://git-scm.com/downloads" target="_blank">git-scm.com/downloads →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🐙 GitHub Account</div>
+          <div class="tool-desc">Free account for hosting your portfolio projects.</div>
+          <a href="https://github.com" target="_blank">github.com →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">🏆 Kaggle Account</div>
+          <div class="tool-desc">Free datasets, competitions, and notebooks.</div>
+          <a href="https://kaggle.com" target="_blank">kaggle.com →</a>
+        </div>
+        <div class="tool-card">
+          <div class="tool-name">☁️ Google Colab</div>
+          <div class="tool-desc">Run Jupyter notebooks in the browser — no install needed.</div>
+          <a href="https://colab.research.google.com" target="_blank">colab.research.google.com →</a>
+        </div>
+      </div>
+
+      <p style="margin-top:16px;"><strong>Python Libraries to Install:</strong></p>
+      <div class="code-block">
+pip install pandas numpy matplotlib seaborn plotly scikit-learn openpyxl xlrd jupyter
+      </div>
+
+      <p><strong>VS Code Extensions to Install:</strong></p>
+      <ul>
+        <li>Python (by Microsoft)</li>
+        <li>Jupyter (by Microsoft)</li>
+        <li>Pylance</li>
+        <li>GitLens</li>
+        <li>Prettier — Code formatter</li>
+        <li>Rainbow CSV (for viewing CSV files)</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ===================== YOUTUBE DIRECTORY ===================== -->
+  <div id="channels">
+    <h2 style="font-size:22px;font-weight:800;color:#ff6b6b;margin-bottom:8px;">📺 YouTube Channel Directory</h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">Your go-to visual learning resources throughout this course. Bookmark all of them.</p>
+
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Each card below links directly to that creator's most relevant course or playlist — not just their homepage. Click any card to go straight to the content.</p>
+
+    <!-- ALEX THE ANALYST -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Alex The Analyst</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/watch?v=rGx1QNdYzvs&list=PLUaB-1hjhk8H48Pj32z4GZgGWyylqv85f" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">FREE Data Analyst Bootcamp</div><div class="yt-focus">Full 70-video bootcamp — Stage 1 start here</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8GT6N5ne2qpf603sF26m2PW" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">SQL Tutorials — Full Playlist</div><div class="yt-focus">Basics · Intermediate · Advanced SQL</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8Ophe0EziSEmxzSZDosB4Kw" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">Excel for Beginners — Playlist</div><div class="yt-focus">Pivot Tables · Charts · Cleaning · Full Project</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8HqnmK0gFTE4E1YLFbZUmQY" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">Python for Data Analysts</div><div class="yt-focus">NumPy · Pandas · API pulls · Projects</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8GwbqoVmo_5zuhOa0Tcl3xC" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">Tableau Tutorials — Playlist</div><div class="yt-focus">Install · Visuals · Joins · Full Project</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PLUaB-1hjhk8H48Pj32z4GZgGWyylqv85f" target="_blank" class="yt-channel">
+          <div class="yt-avatar">A</div>
+          <div class="yt-info"><div class="yt-name">Portfolio Projects — Guided Series</div><div class="yt-focus">SQL · Python · Tableau real-world projects</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- LUKE BAROUSSE -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Luke Barousse</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/watch?v=7mz73uXD9DA" target="_blank" class="yt-channel">
+          <div class="yt-avatar">L</div>
+          <div class="yt-info"><div class="yt-name">SQL for Data Analytics — Full Course</div><div class="yt-focus">4-hour complete SQL course for analysts</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=pCJ15nGFgVg" target="_blank" class="yt-channel">
+          <div class="yt-avatar">L</div>
+          <div class="yt-info"><div class="yt-name">Excel for Data Analytics</div><div class="yt-focus">Full beginner-to-advanced Excel course</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=c7LrqSxjJQQ" target="_blank" class="yt-channel">
+          <div class="yt-avatar">L</div>
+          <div class="yt-info"><div class="yt-name">Power BI for Data Analysts</div><div class="yt-focus">Project-based Power BI walkthrough</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=jG34A_d3A_k" target="_blank" class="yt-channel">
+          <div class="yt-avatar">L</div>
+          <div class="yt-info"><div class="yt-name">How I'd Become a Data Analyst (2024)</div><div class="yt-focus">Roadmap & career guide from scratch</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- KEN JEE -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Ken Jee</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/watch?v=CUBfrdDwznQ" target="_blank" class="yt-channel">
+          <div class="yt-avatar">K</div>
+          <div class="yt-info"><div class="yt-name">How to Become a Data Analyst (FREE)</div><div class="yt-focus">Full career guide — start here for Stage 1</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=xxpc-HPKN28" target="_blank" class="yt-channel">
+          <div class="yt-avatar">K</div>
+          <div class="yt-info"><div class="yt-name">Statistics for Data Science</div><div class="yt-focus">Beginner-friendly statistics introduction</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=a-C9kChQBKE" target="_blank" class="yt-channel">
+          <div class="yt-avatar">K</div>
+          <div class="yt-info"><div class="yt-name">SQL for Data Science</div><div class="yt-focus">Core SQL concepts for aspiring analysts</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=1F4vqCEMFBo" target="_blank" class="yt-channel">
+          <div class="yt-avatar">K</div>
+          <div class="yt-info"><div class="yt-name">Build a Data Science Portfolio</div><div class="yt-focus">How to create projects that get you hired</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=7GnCc31b8JQ" target="_blank" class="yt-channel">
+          <div class="yt-avatar">K</div>
+          <div class="yt-info"><div class="yt-name">Tableau Beginner Project</div><div class="yt-focus">Full dashboard walkthrough from scratch</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- STATQUEST -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">StatQuest with Josh Starmer</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9" target="_blank" class="yt-channel">
+          <div class="yt-avatar">S</div>
+          <div class="yt-info"><div class="yt-name">Statistics Fundamentals — Full Playlist</div><div class="yt-focus">Mean · Variance · Distributions · Hypothesis Testing</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=HTK6Qn55fEk" target="_blank" class="yt-channel">
+          <div class="yt-avatar">S</div>
+          <div class="yt-info"><div class="yt-name">Histograms & Box Plots Explained</div><div class="yt-focus">Perfect for Stage 4 — Data Visualization</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=vemZtEM63GY" target="_blank" class="yt-channel">
+          <div class="yt-avatar">S</div>
+          <div class="yt-info"><div class="yt-name">P-values Clearly Explained</div><div class="yt-focus">Understand hypothesis testing step by step</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=FgakZw6K1QQ" target="_blank" class="yt-channel">
+          <div class="yt-avatar">S</div>
+          <div class="yt-info"><div class="yt-name">Normal Distribution Clearly Explained</div><div class="yt-focus">Stage 1 statistics — bell curve & SD</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- COREY SCHAFER -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Corey Schafer</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTskrapNbzXhwoFUiLCjGgY7" target="_blank" class="yt-channel">
+          <div class="yt-avatar">C</div>
+          <div class="yt-info"><div class="yt-name">Python for Beginners — Full Playlist</div><div class="yt-focus">Variables · Lists · Functions · OOP</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTsWmV9i9c58mdDCSskIFdDS" target="_blank" class="yt-channel">
+          <div class="yt-avatar">C</div>
+          <div class="yt-info"><div class="yt-name">Pandas Tutorial — Full Playlist</div><div class="yt-focus">DataFrames · Filtering · Grouping · Cleaning</div></div>
+        </a>
+        <a href="https://www.youtube.com/playlist?list=PL-osiE80TeTvipOqomVEeZ1HRrcEvtZB_" target="_blank" class="yt-channel">
+          <div class="yt-avatar">C</div>
+          <div class="yt-info"><div class="yt-name">Matplotlib Tutorial — Full Playlist</div><div class="yt-focus">Line · Bar · Scatter · Histograms · Subplots</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- KEITH GALLI -->
+    <div style="margin-bottom:28px;">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;">Keith Galli ⭐ Bonus</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;">
+        <a href="https://www.youtube.com/watch?v=r-uOLxNrNk8" target="_blank" class="yt-channel">
+          <div class="yt-avatar">G</div>
+          <div class="yt-info"><div class="yt-name">Complete Python for Data Analysis</div><div class="yt-focus">Beginner to Pro — Full course video</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=2uvysYbKdjM" target="_blank" class="yt-channel">
+          <div class="yt-avatar">G</div>
+          <div class="yt-info"><div class="yt-name">Complete Pandas Tutorial (2024)</div><div class="yt-focus">Most up-to-date Pandas deep-dive</div></div>
+        </a>
+        <a href="https://www.youtube.com/watch?v=0P7QnIQDBJY" target="_blank" class="yt-channel">
+          <div class="yt-avatar">G</div>
+          <div class="yt-info"><div class="yt-name">Data Visualization — Matplotlib & Seaborn</div><div class="yt-focus">Complete visual Python charts guide</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- FINAL NOTE -->
+  <div class="instructor-note" style="margin-bottom:0;">
+    <div class="label">🎓 Final Word From Your Instructor</div>
+    <p>Data Analysis is not a destination — it is a practice. Every dataset you touch, every query you write, every dashboard you build makes you better. The goal is not perfection on day one. The goal is <strong>consistent progress</strong>. Use this roadmap as your compass. Bookmark it. Return to it when you feel lost. And remember: every senior data analyst you admire was once exactly where you are right now — at the beginning.</p>
+    <p style="margin-top:12px;color:var(--muted);font-size:13px;">Built for Techaidas students · Emmanuel Olaoluwa · 2024</p>
+  </div>
+
+</div>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+    const btn = document.getElementById('backTop');
+    btn.classList.toggle('visible', doc.scrollTop > 400);
+  });
+</script>
+</body>
+</html>
